@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a direct link to the awesome Vintage Story Wiki!
+- Added home-page component styles (`.hero`, `.tool-card`, `.btn-primary`, `.btn-outline`, etc.) to `styles/components.css`
+
+### Changed
+
+- Redesigned home page (`src/routes/Home.svelte`) with a hero section, two tool cards, and a footer note, replacing the generic card-based layout
+- Moved site navigation into the header, removing the standalone nav card from `<main>`
+- Redesigned header with inline nav pills and a two-line brand block (name + tagline)
+- Redesigned footer with a three-column grid (brand, calculators, project links)
+- Rewrote `styles/layout.css` for the new header/nav/footer structure with updated responsive breakpoints
+- Unified hash-route synchronization in `src/App.svelte` and reused `NAV_ITEMS` to render footer calculator links, reducing duplicated navigation logic
+- Removed unused legacy home styles (`.feature-grid`, `.feature-card`) and dropped an empty script block from `src/routes/Home.svelte` to keep the redesign cleanup complete
+
 ## [0.5.0-beta.2] - 2026-02-20
 
 ### Added
