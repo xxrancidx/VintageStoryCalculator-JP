@@ -13,13 +13,26 @@ Visit now at: [vintagecalc.eu](https://vintagecalc.eu)
 
 Planned features and improvements include (but are not limited to):
 
+### Near Term
+
+- Smelting time and fuel consumption calculations integrated into the Alloying and Casting calculators
+- Bloomery requirement information and iron/steel making support
+- Expanded help text throughout the application
+- Shareable calculator links via URL-encoded settings
+- Enhanced mobile UI and UX
+
+### Medium Term
+
 - Claywork calculator: compute clay needed for bricks, vessels, pots, and molds by target count
-- Brick blocks calculator: Calculate resource requirements for the amount of brick blocks desired
 - Glass calculator: calculate ingredients and fuel for the desired amount of glass
-- Smelting planner: total input (ore and fuel) for ingots, including iron and steel blooms
-- Bloomery estimator: number of bloomeries required for a target output and the bricks needed to build them
-- XSkills compatibility: adjust calculations based on relevant skill perks
-- Mobile UX: fix responsive CSS and improve small‑screen layout
+- Leather calculator for crafting resource planning
+- User-defined themes with sharing capabilities
+- XSkills compatibility: adjust calculations based on relevant skill perks (toggleable in settings)
+
+### Longer Term
+
+- Progressive web app (PWA) support
+- Additional specialized calculators and tools
 
 ## Available Tools
 
