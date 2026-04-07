@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { displayMetal } from "../lib/metal-names";
   import {
     getProcessLine,
     getProcessStepLabel,
@@ -68,13 +69,13 @@
         <div class="stack-row pairs">
           {#if process.stacks.length}
             {#each process.stacks as stack}
-              <div class="stack-pair" aria-label={`${stack.metal} スタック`}>
+              <div class="stack-pair" aria-label={`${displayMetal(stack.metal)} スタック`}>
                 <span class="stack-chip">{formatQuantity(stack.amount)}</span>
                 <span
                   class="stack-label"
                   style={`--stack-color:${stack.color || "var(--primary-color)"}`}
                 >
-                  {stack.metal}
+                  {displayMetal(stack.metal)}
                 </span>
               </div>
             {/each}

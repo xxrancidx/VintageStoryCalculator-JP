@@ -8,6 +8,7 @@ import {
 } from "../lib/constants";
 import { computeIngotStackPlan, computeStackPlan } from "../lib/stack-plan";
 import { formatFuelList, getCompatibleFuels } from "../lib/fuels";
+import { displayMetal, displayOre } from "../lib/metal-names";
 import { calculatePureMetalAllocation } from "../lib/smelting";
 import type { Metal } from "../types/index";
 
@@ -147,11 +148,11 @@ export const metalCalculation = derived(metalCalculator, (state) => {
     : [];
 
   return {
-    metalName: definition.name,
+    metalName: displayMetal(definition.name),
     metalColor,
     smeltTemp: formatTemperature(definition.smeltTemp),
     compatibleFuels,
-    oreSources: definition.ores.join("、"),
+    oreSources: definition.ores.map(displayOre).join("、"),
     nuggetsNeeded,
     nuggetsNeededWithSmelter,
     smelterReductionPct,

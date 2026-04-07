@@ -6,6 +6,7 @@
   import StackPlanPanel from "../components/stack-plan-panel.svelte";
   import alloyDefinitionsRaw from "../data/alloys.json";
   import { NUGGETS_PER_INGOT } from "../lib/constants";
+  import { displayAlloy, displayMetal } from "../lib/metal-names";
   import { formatWholeNumber } from "../lib/numberFormatting";
   import {
     ALLOY_PERCENT_PRECISION,
@@ -24,7 +25,7 @@
   const alloyKeys = Object.keys(alloys);
   const alloyOptions: Array<SelectOption<string>> = alloyKeys.map((key) => ({
     value: key,
-    label: alloys[key]?.name ?? key
+    label: displayAlloy(alloys[key]?.name ?? key)
   }));
 
   const formatQuantity = formatWholeNumber;
@@ -112,14 +113,14 @@
         <tbody>
           {#each $alloyCalculation.parts as part}
             <tr>
-              <td data-label="金属">{part.metal}</td>
+              <td data-label="金属">{displayMetal(part.metal)}</td>
               <td data-label="レシピ %">
                 <input
                   class="percent"
                   type="number"
                   inputmode="decimal"
-                  aria-label={`${part.metal} 配合率`}
-                  title={`${part.metal} の目標配合率（${part.min}〜${part.max}%）`}
+                  aria-label={`${displayMetal(part.metal)} 配合率`}
+                  title={`${displayMetal(part.metal)} の目標配合率（${part.min}〜${part.max}%）`}
                   value={part.pct.toFixed(ALLOY_PERCENT_PRECISION)}
                   min={part.min}
                   max={part.max}
@@ -138,8 +139,8 @@
                   max={part.max}
                   step={ALLOY_PERCENT_STEP}
                   value={part.pct}
-                  aria-label={`${part.metal} 配合率スライダー`}
-                  title={`${part.metal} の配合率を調整（${part.min}〜${part.max}%）`}
+                  aria-label={`${displayMetal(part.metal)} 配合率スライダー`}
+                  title={`${displayMetal(part.metal)} の配合率を調整（${part.min}〜${part.max}%）`}
                   on:input={(event) => handlePercentInput(part.metal, event)}
                 />
               </td>

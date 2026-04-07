@@ -12,6 +12,7 @@ import {
   type StackInput
 } from "../lib/stack-plan";
 import { formatFuelList, getCompatibleFuels } from "../lib/fuels";
+import { displayAlloy, displayMetal } from "../lib/metal-names";
 import { calculateAlloyAllocation } from "../lib/smelting";
 import type { Alloy } from "../types/index";
 
@@ -418,11 +419,11 @@ export const alloyCalculation = derived(alloyCalculator, (state) => {
     : formatFuelList(undefined);
 
   const barSegments = totalPercent <= 0
-    ? [{ label: "No metals", color: "#eee", flex: 1 }]
+    ? [{ label: "金属なし", color: "#eee", flex: 1 }]
     : parts
         .filter((part) => part.pct > 0)
         .map((part) => ({
-          label: `${part.metal} ${part.pct.toFixed(1)}%`,
+          label: `${displayMetal(part.metal)} ${part.pct.toFixed(1)}%`,
           color: part.color || "#ccc",
           flex: part.pct
         }));
@@ -436,7 +437,7 @@ export const alloyCalculation = derived(alloyCalculator, (state) => {
     }));
 
   return {
-    alloyName: definition.name,
+    alloyName: displayAlloy(definition.name),
     parts: partsWithAllocations,
     totalUnits,
     totalPercent,

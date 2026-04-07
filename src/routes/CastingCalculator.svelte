@@ -6,6 +6,7 @@
   import StackPlanPanel from "../components/stack-plan-panel.svelte";
   import metalDefinitionsRaw from "../data/metals.json";
   import { NUGGETS_PER_INGOT, UNITS_PER_INGOT } from "../lib/constants";
+  import { displayMetal } from "../lib/metal-names";
   import { formatWholeNumber } from "../lib/numberFormatting";
   import {
     metalCalculation,
@@ -25,7 +26,7 @@
   const metalEntries = Object.entries(metalDefinitions) as Array<[string, Metal]>;
   const metalOptions: Array<SelectOption<string>> = metalEntries.map(([key, metal]) => ({
     value: key,
-    label: metal.name
+    label: displayMetal(metal.name)
   }));
 
   const formatQuantity = formatWholeNumber;
