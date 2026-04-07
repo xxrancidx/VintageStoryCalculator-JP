@@ -25,7 +25,7 @@ export type MetalCalculatorState = {
 export const SMELTER_TIER_DEFAULTS: Record<1 | 2 | 3, number> = {
   1: 10,
   2: 20,
-  3: 25
+  3: 30
 };
 
 const METAL_DEFINITIONS = metalDefinitionsRaw as Record<string, Metal>;
@@ -40,7 +40,7 @@ const initializeState = (): MetalCalculatorState => {
     smelterEnabled: false,
     smelterTier: 3,
     useCustomSmelter: false,
-    smelterCustomPct: 25
+    smelterCustomPct: 30
   };
 };
 
