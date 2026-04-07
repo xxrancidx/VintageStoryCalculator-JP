@@ -28,7 +28,7 @@
 
 ### 合金計算機
 目標インゴット数を設定するだけで、各合金成分の正確なナゲット量を計算します。
-錫青銅、黒青銅、蒼鉛青銅、エレクトラムなど Vintage Story の全合金に対応。
+錫青銅、黒青銅、ビスマス青銅、エレクトラムなど Vintage Story の全合金に対応。
 溶解温度の表示、プロセスごとのスタックプラン表示、レシピ共有用URLにも対応しています。
 
 ### 鋳造計算機
@@ -39,22 +39,6 @@
 ### 共有URL
 両計算機ともサイドバーの「レシピを共有」ボタンで現在の設定を URL にエンコードできます。
 URL を開けば計算機の状態がそのまま復元されます。
-
----
-
-## ローカル開発
-
-```bash
-npm install
-npm run dev    # http://localhost:5173/ で確認
-npm run build  # 本番ビルド
-npm run preview
-```
-
-## デプロイ
-
-`master` ブランチへの push をトリガーに、GitHub Actions が自動的に
-GitHub Pages へデプロイします（[.github/workflows/deploy.yml](.github/workflows/deploy.yml)）。
 
 ---
 

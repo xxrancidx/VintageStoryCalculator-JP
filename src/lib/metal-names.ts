@@ -10,7 +10,7 @@ const METAL_JP: Record<string, string> = {
   Silver: "銀（Silver）",
   Tin: "錫（Tin）",
   Zinc: "亜鉛（Zinc）",
-  Bismuth: "蒼鉛（Bismuth）",
+  Bismuth: "ビスマス（Bismuth）",
   Lead: "鉛（Lead）",
   Nickel: "ニッケル（Nickel）"
 };
@@ -18,7 +18,7 @@ const METAL_JP: Record<string, string> = {
 const ALLOY_JP: Record<string, string> = {
   Brass: "真鍮（Brass）",
   "Tin Bronze": "錫青銅（Tin Bronze）",
-  "Bismuth Bronze": "蒼鉛青銅（Bismuth Bronze）",
+  "Bismuth Bronze": "ビスマス青銅（Bismuth Bronze）",
   "Black Bronze": "黒青銅（Black Bronze）",
   "Lead Solder": "鉛半田（Lead Solder）",
   Molybdochalkos: "モリブドカルコス（Molybdochalkos）",
