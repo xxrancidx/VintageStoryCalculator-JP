@@ -1,182 +1,73 @@
-# Vintage Story Calculator
+# Vintage Story Calculator (日本語版)
 
-[![License][license-badge]][license]
-[![Release][release-badge]][release-link]
-[![Changelog][changelog-badge]][changelog]
-[![Netlify Status][netlify-badge]][netlify-link]
+[Vintage Story](https://www.vintagestory.at/) 向けの計算ツール集の **日本語化フォーク** です。
+合金の配合比率やインゴット鋳造に必要なナゲット数などを正確に計算できます。
 
-A modern, Svelte-powered calculator application designed to assist players of Vintage Story with various game calculations, including alloy recipes and resource management.
+🔗 **公開URL: https://xxrancidx.github.io/VintageStoryCalculator-JP/**
 
-Visit now at: [vintagecalc.eu](https://vintagecalc.eu)
+---
 
-## Roadmap
+## このフォークの特徴
 
-Planned features and improvements include (but are not limited to):
+### 🇯🇵 完全日本語化
+ナビゲーション、計算機UI、設定画面、表示ラベルなどすべてを日本語化しています。
 
-### Near Term
+### ⚒️ XSkills「鋳造師（Smelter）スキル」対応
+[XSkills Mod](https://mods.vintagestory.at/xskillsandxlib) をプレイしている方向けに、
+鋳造計算機に **「鋳造師スキルを適用」** トグルを追加しました。
 
-- Smelting time and fuel consumption calculations integrated into the Alloying and Casting calculators
-- Bloomery requirement information and iron/steel making support
-- Expanded help text throughout the application
-- Enhanced mobile UI and UX
+- Tier 1〜3 のプリセット（デフォルト削減率: 10% / 20% / 25%）
+- カスタム削減率の入力欄（サーバー設定を変更している環境向け）
+- 削減前 → 削減後のナゲット数を並べて表示
+- 端数が発生する場合は警告バナーを表示
+- 溶解スタックプランもスキル適用後の値で再計算
 
-### Medium Term
+---
 
-- Claywork calculator: compute clay needed for bricks, vessels, pots, and molds by target count
-- Glass calculator: calculate ingredients and fuel for the desired amount of glass
-- Leather calculator for crafting resource planning
-- User-defined themes with sharing capabilities
-- XSkills compatibility: adjust calculations based on relevant skill perks (toggleable in settings)
+## 利用可能なツール
 
-### Longer Term
+### 合金計算機
+目標インゴット数を設定するだけで、各合金成分の正確なナゲット量を計算します。
+錫青銅、黒青銅、蒼鉛青銅、エレクトラムなど Vintage Story の全合金に対応。
+溶解温度の表示、プロセスごとのスタックプラン表示、レシピ共有用URLにも対応しています。
 
-- Progressive web app (PWA) support
-- Additional specialized calculators and tools
+### 鋳造計算機
+インゴット鋳造に必要な鉱石ナゲット数を計算します。
+鋳造可能な全 8 種の金属に対応し、溶解温度・入手元情報・スタックプランを表示。
+**XSkills 鋳造師スキル**にも対応しています。
 
-## Available Tools
+### 共有URL
+両計算機ともサイドバーの「レシピを共有」ボタンで現在の設定を URL にエンコードできます。
+URL を開けば計算機の状態がそのまま復元されます。
 
-### Alloying Calculator
+---
 
-Calculate the exact amounts of metals needed to create your desired alloy. Supports all alloys and solders in Vintage Story. Includes smelting temperature information, a process-by-process stack plan view for multi-batch runs, and a share button that copies the current recipe URL.
+## ローカル開発
 
-### Casting Calculator
-
-Calculate the number of ore nuggets needed to cast metal ingots in a crucible. Supports all 8 castable metals, shows smelting temperatures and ore source information, includes a visual stack plan for each smelting process, and supports shareable calculator URLs.
-
-## Shareable Recipe URLs
-
-Both calculators support URL-encoded state so you can share exact setups with others.
-
-- Use the `Share recipe` button in the calculator sidebar to copy the current setup URL.
-- Opening that URL restores calculator selections automatically.
-- URL format is route-aware, for example: `#alloying?a=tin_bronze&n=10&Copper=90.0&Tin=10.0` and `#casting?m=copper&n=10`.
-- The sharing system is extensible via per-route codecs registered through `src/lib/url-state.ts`.
-
-### Feedback Form
-
-Send feedback from a dedicated in-app page without creating an account. Submissions are handled by Netlify Forms with spam filtering, minimal required fields, and a privacy acknowledgement.
-
-## How to Use
-
-1. Run `npm install` to install dependencies
-2. Start the development server with `npm run dev`
-3. Open the provided local URL in your browser
-4. Navigate to the desired calculator using the in-app navigation
-5. Optionally open settings from the header to customize theme, font family, UI scale, and help-text visibility
-6. For alloys: select your alloy type and adjust percentages to see exact nuggets needed
-7. For metals: select your metal and target ingots to see nuggets required
-
-## Development
-
-- `npm run dev`: start a hot-reloading development server (default port 5173)
-- `npm run build`: generate an optimized production build
-- `npm run preview`: serve the production build locally for verification
-- `npm run lint`: run ESLint checks for TypeScript sources
-
-## Project Structure
-
-```shell
-VintageStoryCalculator/         # Root directory
-├── .github/                    # Issue templates and repo automation
-├── index.html                  # Vite entry point
-├── package.json                # Project configuration and scripts
-├── src/                        # Svelte application source
-│   ├── App.svelte              # Root layout and navigation
-│   ├── components/             # Reusable UI components
-│   │   ├── calculator-card.svelte
-│   │   ├── feedback-form.svelte
-│   │   ├── number-input.svelte
-│   │   ├── result-display.svelte
-│   │   ├── select-input.svelte
-│   │   ├── share-button.svelte
-│   │   ├── settings-modal.svelte
-│   │   ├── stack-plan-panel.svelte
-│   │   └── temperature-display.svelte
-│   ├── data/                   # Game data files
-│   │   ├── alloys.json         # Alloy recipes and definitions
-│   │   ├── constants.json      # Shared game constants and fuel data
-│   │   ├── fuels.json          # Fuel definitions and burn times
-│   │   └── metals.json         # Metal definitions
-│   ├── lib/                    # Shared utilities
-│   │   ├── calculations.ts     # Pure calculator helpers
-│   │   ├── constants.ts        # Typed constants exports
-│   │   ├── fuels.ts            # Typed fuel definitions
-│   │   ├── numberFormatting.ts # Shared numeric formatting helpers
-│   │   ├── stack-display.ts    # Process and stack display labels
-│   │   ├── stack-plan.ts       # Stack breakdown helper
-│   │   ├── url-state.ts        # Share URL codec registry and parsing helpers
-│   │   ├── smelting/           # Smelting planning and allocation helpers
-│   │   │   ├── allocation.ts
-│   │   │   ├── index.ts
-│   │   │   ├── planner.ts
-│   │   │   └── types.ts
-│   │   └── version.ts          # Changelog parser
-│   ├── main.ts                 # Application bootstrap
-│   ├── stores/                 # Svelte stores
-│   │   ├── alloyCalculator.ts  # Alloying calculator store
-│   │   ├── metalCalculator.ts  # Casting calculator store
-│   │   ├── settings.ts         # Persistent UI settings store
-│   │   ├── share/              # URL sharing codecs per calculator
-│   │   │   ├── alloyCodec.ts
-│   │   │   ├── index.ts
-│   │   │   └── metalCodec.ts
-│   │   └── theme.ts            # Theme store
-│   ├── types/                  # Shared TypeScript interfaces
-│   │   ├── components.ts       # Component prop and event contracts
-│   │   └── index.ts            # Data and calculation types
-│   └── routes/                 # Route-aligned components
-│       ├── AlloyingCalculator.svelte
-│       ├── CastingCalculator.svelte
-│       ├── Feedback.svelte
-│       ├── Privacy.svelte
-│       └── Home.svelte
-├── tsconfig.json               # TypeScript configuration
-├── .eslintrc.cjs               # ESLint configuration
-├── styles/                     # Shared styling
-│   ├── base.css
-│   ├── calculator.css          # Calculator style entrypoint importing modular partials
-│   ├── calculator/
-│   │   ├── layout.css
-│   │   ├── responsive.css
-│   │   ├── share-button.css
-│   │   └── stack.css
-│   ├── components.css
-│   ├── layout.css
-│   └── themes.css
-├── CHANGELOG.md                # Release notes
-├── LICENSE                     # MIT License
-└── README.md                   # Project overview
+```bash
+npm install
+npm run dev    # http://localhost:5173/ で確認
+npm run build  # 本番ビルド
+npm run preview
 ```
 
-## Browser Support
+## デプロイ
 
-Works in all modern web browsers that support ES6+ JavaScript features.
+`master` ブランチへの push をトリガーに、GitHub Actions が自動的に
+GitHub Pages へデプロイします（[.github/workflows/deploy.yml](.github/workflows/deploy.yml)）。
 
-## Contributing
+---
 
-See the [CONTRIBUTING][contributing] file for contribution guidelines.
+## ライセンスと謝辞
 
-## License
+このプロジェクトは [D-Heger/VintageStoryCalculator](https://github.com/D-Heger/VintageStoryCalculator)
+（MIT License, © David Heger）のフォークです。素晴らしい元プロジェクトの作者 D-Heger 氏に感謝します。
 
-This project is licensed under the MIT License - see the [LICENSE][license] file for details.
+本フォークも MIT License の下で配布されます。詳細は [LICENSE](LICENSE) を参照してください。
 
-## Changelog
+## 関連リンク
 
-See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes and release history.
-
-## Links
-
-- [Vintage Story Official Website](https://www.vintagestory.at/)
-
-<!-- Files -->
-[contributing]: ./CONTRIBUTING.md
-[license]: ./LICENSE
-[changelog]: ./CHANGELOG.md
-<!-- Badges -->
-[release-badge]: https://img.shields.io/github/release/D-Heger/VintageStoryCalculator.svg
-[netlify-badge]: https://api.netlify.com/api/v1/badges/3da43ce5-7b01-468a-a86c-4b6f90933b76/deploy-status
-[license-badge]: https://img.shields.io/github/license/D-Heger/VintageStoryCalculator.svg
-[changelog-badge]: https://img.shields.io/github/v/release/D-Heger/VintageStoryCalculator.svg?label=changelog&include_prereleases&sort=semver
-<!-- Links -->
-[release-link]: https://github.com/D-Heger/VintageStoryCalculator/releases
-[netlify-link]: https://app.netlify.com/sites/kaleidoscopic-kitsune-48847d/deploys?branch=release
+- [Vintage Story 公式サイト](https://www.vintagestory.at/)
+- [Vintage Story Wiki](https://wiki.vintagestory.at/Main_Page)
+- [XSkills Mod (ModDB)](https://mods.vintagestory.at/xskillsandxlib)
+- [元リポジトリ (D-Heger/VintageStoryCalculator)](https://github.com/D-Heger/VintageStoryCalculator)

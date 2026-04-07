@@ -4,8 +4,6 @@
   import Home from "./routes/Home.svelte";
   import AlloyingCalculator from "./routes/AlloyingCalculator.svelte";
   import CastingCalculator from "./routes/CastingCalculator.svelte";
-  import Feedback from "./routes/Feedback.svelte";
-  import Privacy from "./routes/Privacy.svelte";
   import SettingsModal from "./components/settings-modal.svelte";
   import { getProjectVersion } from "./lib/version";
   import { initTheme, setTheme } from "./stores/theme";
@@ -20,9 +18,7 @@
   const NAV_ITEMS = [
     { id: "home", label: "Home", hash: "#home" },
     { id: "alloying", label: "Alloying Calculator", hash: "#alloying" },
-    { id: "casting", label: "Casting Calculator", hash: "#casting" },
-    { id: "feedback", label: "Feedback", hash: "#feedback" },
-    { id: "privacy", label: "Privacy", hash: "#privacy" }
+    { id: "casting", label: "Casting Calculator", hash: "#casting" }
   ] as const;
 
   const CALCULATOR_NAV_ITEMS = NAV_ITEMS.filter(
@@ -36,9 +32,7 @@
   const ROUTES: Record<RouteId, RouteComponent> = {
     home: Home,
     alloying: AlloyingCalculator,
-    casting: CastingCalculator,
-    feedback: Feedback,
-    privacy: Privacy
+    casting: CastingCalculator
   };
 
   let currentRoute: RouteId = "home";
@@ -50,8 +44,6 @@
     const route = parseRouteFromHash(hash);
     if (route === "alloying") return "alloying";
     if (route === "casting") return "casting";
-    if (route === "feedback") return "feedback";
-    if (route === "privacy") return "privacy";
     return "home";
   };
 
@@ -77,9 +69,7 @@
     const titles = {
       home: `${baseTitle} — Home`,
       alloying: `${baseTitle} — Alloying Calculator`,
-      casting: `${baseTitle} — Casting Calculator`,
-      feedback: `${baseTitle} — Feedback`,
-      privacy: `${baseTitle} — Privacy`
+      casting: `${baseTitle} — Casting Calculator`
     };
     const descriptions = {
       home:
@@ -87,11 +77,7 @@
       alloying:
         "Calculate exact metal ratios and nuggets for Vintage Story alloys like Tin Bronze, Bismuth Bronze, Electrum, and more.",
       casting:
-        "Calculate ore nuggets needed to cast metal ingots in Vintage Story. Supports all castable metals including Copper, Gold, Silver, and more.",
-      feedback:
-        "Send feedback for Vintage Story Calculator without creating an account. Report bugs, request features, and share ideas.",
-      privacy:
-        "Privacy notice for Vintage Story Calculator feedback processing, retention policy, and user data rights."
+        "Calculate ore nuggets needed to cast metal ingots in Vintage Story. Supports all castable metals including Copper, Gold, Silver, and more."
     };
 
     document.title = titles[routeId] || baseTitle;
@@ -221,10 +207,9 @@
     <div class="footer-section">
       <span class="footer-heading">Project</span>
       <ul>
-        <li><a href="https://github.com/D-Heger/VintageStoryCalculator">GitHub</a></li>
-        <li><a href="https://github.com/D-Heger/VintageStoryCalculator/releases">Version {version}</a></li>
-        <li><a href="https://github.com/D-Heger/VintageStoryCalculator/blob/release/CHANGELOG.md">Changelog</a></li>
-        <li><a href="#privacy" on:click|preventDefault={() => navigate("privacy")}>Privacy</a></li>
+        <li><a href="https://github.com/xxrancidx/VintageStoryCalculator-JP">GitHub</a></li>
+        <li><a href="https://github.com/xxrancidx/VintageStoryCalculator-JP/releases">Version {version}</a></li>
+        <li><a href="https://github.com/xxrancidx/VintageStoryCalculator-JP/blob/master/CHANGELOG.md">Changelog</a></li>
       </ul>
     </div>
   </div>

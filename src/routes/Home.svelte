@@ -50,17 +50,7 @@
       <div class="tool-body">
         <h3>近日公開予定</h3>
         <p>
-          さらに多くのツールやユーティリティを計画中です。ご要望はフィードバックフォームからどうぞ。
-        </p>
-      </div>
-      <span class="tool-arrow" aria-hidden="true">→</span>
-    </a>
-    <a href="#feedback" class="tool-card">
-      <div class="tool-icon" aria-hidden="true">✉️</div>
-      <div class="tool-body">
-        <h3>フィードバック</h3>
-        <p>
-          バグ報告、機能リクエスト、バランス調整の提案など、シンプルなフォームから送信できます。アカウント不要。
+          さらに多くのツールやユーティリティを計画中です。ご要望は GitHub の Issue からどうぞ。
         </p>
       </div>
       <span class="tool-arrow" aria-hidden="true">→</span>
@@ -79,5 +69,5 @@
 </section>
 
 <div class="home-footer-note">
-  <p>プレイヤーがプレイヤーのために作成。ソースコードは <a href="https://github.com/D-Heger/VintageStoryCalculator">GitHub</a> で公開中。</p>
+  <p>プレイヤーがプレイヤーのために作成。ソースコードは <a href="https://github.com/xxrancidx/VintageStoryCalculator-JP">GitHub</a> で公開中。</p>
 </div>
