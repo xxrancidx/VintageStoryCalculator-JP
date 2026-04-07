@@ -28,7 +28,7 @@
   };
   
   const handleReset = () => {
-    if (confirm("Reset all settings to defaults?")) {
+    if (confirm("すべての設定をデフォルトに戻しますか？")) {
       resetSettings();
     }
   };
@@ -55,11 +55,11 @@
   >
     <div class="settings-modal" role="dialog" aria-labelledby="settings-title" aria-modal="true">
       <div class="settings-header">
-        <h2 id="settings-title">Settings</h2>
+        <h2 id="settings-title">設定</h2>
         <button 
           class="close-button" 
           on:click={onClose}
-          aria-label="Close settings"
+          aria-label="設定を閉じる"
           type="button"
         >
           ✕
@@ -73,7 +73,7 @@
           on:click={() => activeSection = "appearance"}
           type="button"
         >
-          Appearance
+          外観
         </button>
         <button
           class="tab-button"
@@ -81,19 +81,19 @@
           on:click={() => activeSection = "accessibility"}
           type="button"
         >
-          Accessibility
+          アクセシビリティ
         </button>
       </div>
       
       <div class="settings-content">
         {#if activeSection === "appearance"}
           <section class="settings-section" aria-labelledby="appearance-heading">
-            <h3 id="appearance-heading">Appearance</h3>
+            <h3 id="appearance-heading">外観</h3>
             
             <div class="setting-item">
               <label for="theme-select">
-                <span class="setting-label">Theme</span>
-                <span class="setting-description">Choose your color scheme</span>
+                <span class="setting-label">テーマ</span>
+                <span class="setting-description">カラースキームを選択</span>
               </label>
               <select 
                 id="theme-select"
@@ -108,8 +108,8 @@
             
             <div class="setting-item">
               <label for="font-select">
-                <span class="setting-label">Font Family</span>
-                <span class="setting-description">Adjust text appearance</span>
+                <span class="setting-label">フォント</span>
+                <span class="setting-description">テキストの表示を調整</span>
               </label>
               <select 
                 id="font-select"
@@ -124,8 +124,8 @@
             
             <div class="setting-item">
               <label for="scale-select">
-                <span class="setting-label">UI Size</span>
-                <span class="setting-description">Adjust interface scale</span>
+                <span class="setting-label">UIサイズ</span>
+                <span class="setting-description">インターフェースの拡大率を調整</span>
               </label>
               <select 
                 id="scale-select"
@@ -142,13 +142,13 @@
         
         {#if activeSection === "accessibility"}
           <section class="settings-section" aria-labelledby="accessibility-heading">
-            <h3 id="accessibility-heading">Accessibility</h3>
+            <h3 id="accessibility-heading">アクセシビリティ</h3>
             
             <div class="setting-item">
               <label for="help-text-toggle" class="toggle-label">
                 <div>
-                  <span class="setting-label">Show Help Text</span>
-                  <span class="setting-description">Display hints and descriptions on form inputs</span>
+                  <span class="setting-label">ヘルプテキストを表示</span>
+                  <span class="setting-description">フォーム入力のヒントと説明を表示する</span>
                 </div>
                 <input 
                   id="help-text-toggle"
@@ -170,7 +170,7 @@
           on:click={handleReset}
           type="button"
         >
-          Reset to Defaults
+          デフォルトに戻す
         </button>
       </div>
     </div>
@@ -212,14 +212,8 @@
   }
   
   @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   
   .settings-header {
@@ -271,9 +265,7 @@
     transition: all var(--transition);
   }
   
-  .tab-button:hover {
-    color: var(--text-primary);
-  }
+  .tab-button:hover { color: var(--text-primary); }
   
   .tab-button.active {
     color: var(--primary-color);
@@ -296,9 +288,7 @@
     margin-bottom: var(--spacing-lg);
   }
   
-  .setting-item:last-child {
-    margin-bottom: 0;
-  }
+  .setting-item:last-child { margin-bottom: 0; }
   
   .setting-item label {
     display: block;
@@ -330,16 +320,13 @@
     transition: all var(--transition);
   }
   
-  .setting-item select:hover {
-    border-color: var(--border-strong);
-  }
+  .setting-item select:hover { border-color: var(--border-strong); }
   
   .setting-item select:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
   
-  /* Toggle switch styling */
   .toggle-label {
     display: flex;
     align-items: center;
@@ -351,17 +338,10 @@
     transition: background var(--transition);
   }
   
-  .toggle-label:hover {
-    background: var(--surface-hover);
-  }
+  .toggle-label:hover { background: var(--surface-hover); }
+  .toggle-label > div { flex: 1; }
   
-  .toggle-label > div {
-    flex: 1;
-  }
-  
-  .toggle-input {
-    display: none;
-  }
+  .toggle-input { display: none; }
   
   .toggle-slider {
     position: relative;
@@ -387,13 +367,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
-  .toggle-input:checked + .toggle-slider {
-    background: var(--primary-color);
-  }
-  
-  .toggle-input:checked + .toggle-slider::before {
-    transform: translateX(24px);
-  }
+  .toggle-input:checked + .toggle-slider { background: var(--primary-color); }
+  .toggle-input:checked + .toggle-slider::before { transform: translateX(24px); }
   
   .settings-footer {
     padding: var(--spacing-md) var(--spacing-lg);
@@ -425,9 +400,6 @@
       max-height: 100vh;
       border-radius: 0;
     }
-    
-    .settings-tabs {
-      overflow-x: auto;
-    }
+    .settings-tabs { overflow-x: auto; }
   }
 </style>

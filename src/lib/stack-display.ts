@@ -13,24 +13,25 @@ export const getStackNote = (
   stackPlan: StackPlanView
 ): string => {
   if (!hasStackInputs) {
-    return "Enter ingots to see stack layout.";
+    return "インゴット数を入力するとスタック構成が表示されます。";
   }
 
   const processCount = stackPlan.processes?.length || (stackPlan.totalStacks ? 1 : 0);
   return stackPlan.requiresMultipleProcesses
-    ? `${processCount} smelting batches needed (4-stack limit).`
-    : "Fits in one smelting batch (4-stack limit).";
+    ? `${processCount} 回の溶解バッチが必要です（4スタック上限）。`
+    : "1回の溶解バッチに収まります（4スタック上限）。";
 };
 
 export const getProcessLine = (
   process: ProcessView,
-  formatQuantity: (value: number) => string
+  formatQuantity: (value: number) => string,
+  unitsPerIngot = 100
 ): string => {
   const nuggets = process.nuggetsTotal ?? process.stacks.reduce((sum, stack) => sum + stack.amount, 0);
   const units = process.unitsTotal ?? nuggets * 5;
-  const ingots = process.ingotsTotal ?? nuggets / 20;
-  return `${formatQuantity(units)} units • ${ingots.toFixed(2).replace(/\.00$/, "")} ingots`;
+  const ingots = units / unitsPerIngot;
+  return `${formatQuantity(units)} ユニット • ${ingots.toFixed(2).replace(/\.00$/, "")} インゴット`;
 };
 
 export const getProcessStepLabel = (process: ProcessView): string =>
-  process.isIngotStepValid === false ? "Invalid!" : "Valid";
+  process.isIngotStepValid === false ? "無効" : "有効";

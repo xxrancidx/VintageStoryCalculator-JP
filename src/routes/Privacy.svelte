@@ -1,43 +1,39 @@
 <section class="legal-page" aria-labelledby="privacy-heading">
   <article class="legal-card">
-    <h2 id="privacy-heading" class="section-label">Privacy Notice</h2>
-    <p class="legal-updated">Last updated: 2026-03-06</p>
+    <h2 id="privacy-heading" class="section-label">プライバシー通知</h2>
+    <p class="legal-updated">最終更新日: 2026-03-06</p>
 
-    <h3>What this site collects</h3>
+    <h3>収集する情報</h3>
     <p>
-      This site provides an optional feedback form. The form may include your message and,
-      optionally, your name and email address.
+      このサイトではオプションのフィードバックフォームを提供しています。フォームにはメッセージと、任意でお名前・メールアドレスを含めることができます。
     </p>
 
-    <h3>Why this data is processed</h3>
+    <h3>データを処理する目的</h3>
     <p>
-      Feedback data is used to improve calculators, fix issues, and prioritize requested features.
-      The legal basis is legitimate interest in maintaining and improving the project.
+      フィードバックデータは、計算機の改善、不具合の修正、機能リクエストの優先順位付けに使用します。
+      法的根拠はプロジェクトの維持・改善における正当な利益です。
     </p>
 
-    <h3>Where data is processed</h3>
+    <h3>データの処理場所</h3>
     <p>
-      Feedback submissions are processed by Netlify Forms as the hosting and form-processing
-      provider.
+      フィードバックの送信データは、ホスティングおよびフォーム処理プロバイダーである Netlify Forms によって処理されます。
     </p>
 
-    <h3>Retention</h3>
+    <h3>保持期間</h3>
     <p>
-      Feedback submissions are retained for up to 180 days and then deleted unless a longer
-      retention is required for resolving an active issue.
+      フィードバックの送信データは最大180日間保持され、その後削除されます。ただし、進行中の問題の解決に長期保持が必要な場合を除きます。
     </p>
 
-    <h3>Your rights</h3>
+    <h3>あなたの権利</h3>
     <p>
-      You can request access to or deletion of feedback data by opening an issue on
-      <a href="https://github.com/D-Heger/VintageStoryCalculator/issues">GitHub</a> and
-      referencing your submission details.
+      フィードバックデータへのアクセスや削除を希望する場合は、
+      <a href="https://github.com/D-Heger/VintageStoryCalculator/issues">GitHub</a> にイシューを作成し、送信内容の詳細を記載してください。
     </p>
 
-    <h3>Third-party policy</h3>
+    <h3>サードパーティポリシー</h3>
     <p>
-      Netlify privacy information is available at
-      <a href="https://www.netlify.com/privacy/">netlify.com/privacy</a>.
+      Netlify のプライバシー情報は
+      <a href="https://www.netlify.com/privacy/">netlify.com/privacy</a> でご確認いただけます。
     </p>
   </article>
 </section>

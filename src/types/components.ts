@@ -96,4 +96,6 @@ export interface StackPlanPanelProps {
   stackPlan: StackPlanView;
   hasStackInputs: boolean;
   formatQuantity: (value: number) => string;
+  unitsPerIngot?: number;
+  hasFractionalIngots?: boolean;
 }

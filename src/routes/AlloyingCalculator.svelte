@@ -46,50 +46,49 @@
 </script>
 
 <section class="calculator-shell">
-  <aside class="calculator-rail" aria-label="Alloy calculator controls">
+  <aside class="calculator-rail" aria-label="合金計算機の入力">
     <CalculatorCard
-      title="Alloying Calculator"
-      subtitle="Blend planning"
+      title="合金計算機"
+      subtitle="ブレンド計画"
     >
       <p>
-        Calculate exact metal amounts for each alloy recipe. One ingot equals
-        {NUGGETS_PER_INGOT} nuggets.
+        各合金レシピに必要な正確な金属量を計算します。インゴット1個 = {NUGGETS_PER_INGOT}ナゲット。
       </p>
     </CalculatorCard>
 
     <div class="controls">
       <SelectInput
         id="alloySelect"
-        label="Choose alloy"
+        label="合金を選択"
         options={alloyOptions}
         value={$alloyCalculator.selectedAlloy}
-        helpText="Pick the alloy recipe to calculate."
+        helpText="計算したい合金レシピを選んでください。"
         on:change={handleAlloyChange}
       />
 
       <NumberInput
         id="targetIngots"
-        label="Target ingots"
+        label="目標インゴット数"
         value={$alloyCalculator.targetIngots}
         min={0}
         step={1}
-        helpText="Total ingots to produce."
+        helpText="製造したいインゴットの総数。"
         on:input={handleIngotsInput}
       />
     </div>
 
-    <CalculatorCard title="Quick Summary" headingTag="h3">
+    <CalculatorCard title="計算結果まとめ" headingTag="h3">
       <div class="calculator-meta-grid">
         <p class="calculator-meta-item">
-          <span>Total units</span>
+          <span>合計ユニット数</span>
           <strong>{formatQuantity($alloyCalculation.totalUnits)}</strong>
         </p>
         <p class="calculator-meta-item">
-          <span>Smelting temp</span>
+          <span>溶解温度</span>
           <strong>{$alloyCalculation.smeltTemp}</strong>
         </p>
         <p class="calculator-meta-item calculator-meta-item--full">
-          <span>Compatible fuels</span>
+          <span>使用可能な燃料</span>
           <strong>{$alloyCalculation.compatibleFuels}</strong>
         </p>
       </div>
@@ -98,29 +97,29 @@
     <ShareButton route="alloying" />
   </aside>
 
-  <section class="calculator-workspace" aria-label="Alloy recipe results">
+  <section class="calculator-workspace" aria-label="合金レシピの結果">
     <div id="calculator" class="calculator-main">
-      <table aria-label="Alloy recipe">
+      <table aria-label="合金レシピ">
         <thead>
           <tr>
-            <th>Metal</th>
-            <th title="Target percent range for each metal.">Recipe %</th>
-            <th title="Units required to hit the target ingots.">Units needed</th>
-            <th title="Total nuggets required for each metal.">Nuggets</th>
-            <th title="Fine-tune the percent with a slider.">Adjust</th>
+            <th>金属</th>
+            <th title="各金属のレシピ配合率。">レシピ %</th>
+            <th title="目標インゴット数に必要なユニット数。">必要ユニット</th>
+            <th title="各金属の必要ナゲット数。">ナゲット</th>
+            <th title="スライダーで配合率を微調整。">調整</th>
           </tr>
         </thead>
         <tbody>
           {#each $alloyCalculation.parts as part}
             <tr>
-              <td data-label="Metal">{part.metal}</td>
-              <td data-label="Recipe %">
+              <td data-label="金属">{part.metal}</td>
+              <td data-label="レシピ %">
                 <input
                   class="percent"
                   type="number"
                   inputmode="decimal"
-                  aria-label={`${part.metal} percent`}
-                  title={`Target ${part.metal} percent (${part.min}-${part.max}%).`}
+                  aria-label={`${part.metal} 配合率`}
+                  title={`${part.metal} の目標配合率（${part.min}〜${part.max}%）`}
                   value={part.pct.toFixed(ALLOY_PERCENT_PRECISION)}
                   min={part.min}
                   max={part.max}
@@ -129,9 +128,9 @@
                   on:change={(event) => handlePercentInput(part.metal, event)}
                 />
               </td>
-              <td class="units" data-label="Units needed">{formatQuantity(part.units)}</td>
-              <td class="nuggets" data-label="Nuggets">{formatQuantity(part.nuggets)}</td>
-              <td class="sliders" data-label="Adjust">
+              <td class="units" data-label="必要ユニット">{formatQuantity(part.units)}</td>
+              <td class="nuggets" data-label="ナゲット">{formatQuantity(part.nuggets)}</td>
+              <td class="sliders" data-label="調整">
                 <input
                   class="slider"
                   type="range"
@@ -139,8 +138,8 @@
                   max={part.max}
                   step={ALLOY_PERCENT_STEP}
                   value={part.pct}
-                  aria-label={`${part.metal} percent slider`}
-                  title={`Adjust ${part.metal} percent (${part.min}-${part.max}%).`}
+                  aria-label={`${part.metal} 配合率スライダー`}
+                  title={`${part.metal} の配合率を調整（${part.min}〜${part.max}%）`}
                   on:input={(event) => handlePercentInput(part.metal, event)}
                 />
               </td>
@@ -149,7 +148,7 @@
         </tbody>
       </table>
 
-      <div class="bar" aria-label="Alloy blend proportions">
+      <div class="bar" aria-label="合金の配合比率">
         {#each $alloyCalculation.barSegments as segment}
           <div
             class="segment"
