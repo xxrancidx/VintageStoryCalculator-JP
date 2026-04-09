@@ -98,7 +98,7 @@
         <label class="smelter-toggle-row">
           <span class="smelter-toggle-label">
             <strong>鋳造師 (Smelter) スキルを適用</strong>
-            <span class="smelter-sublabel">インゴット鋳造に必要なユニット数を削減します</span>
+            <span class="smelter-sublabel">鋳造に必要なユニット数を削減します（再溶解できない工具の鋳型のみ適用。インゴット鋳型・プレート鋳型など再溶解可能な鋳型には適用されません）</span>
           </span>
           <input
             type="checkbox"
