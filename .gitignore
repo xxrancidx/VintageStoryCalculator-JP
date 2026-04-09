@@ -10,3 +10,6 @@ pnpm-debug.log*
 
 # VSCode Local History 拡張機能のスナップショット
 .history/
+
+# 検証スクリプトのビルド成果物
+scripts/*.mjs
