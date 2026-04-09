@@ -11,11 +11,16 @@
   import {
     ALLOY_PERCENT_PRECISION,
     ALLOY_PERCENT_STEP,
+    SMELTER_TIER_DEFAULTS,
     alloyCalculation,
     alloyCalculator,
     setMetalPercentage,
     setSelectedAlloy,
-    setTargetIngots
+    setSmelterCustomPct,
+    setSmelterEnabled,
+    setSmelterTier,
+    setTargetIngots,
+    setUseCustomSmelter
   } from "../stores/alloyCalculator";
   import type { Alloy } from "../types/index";
   import type { SelectOption } from "../types/components";
@@ -29,6 +34,7 @@
   }));
 
   const formatQuantity = formatWholeNumber;
+  const smelterTiers: Array<1 | 2 | 3> = [1, 2, 3];
 
   const handleAlloyChange = (event: CustomEvent<{ value: string }>) => {
     setSelectedAlloy(event.detail.value);
@@ -36,6 +42,24 @@
 
   const handleIngotsInput = (event: CustomEvent<{ value: number | null }>) => {
     setTargetIngots(event.detail.value);
+  };
+
+  const handleSmelterToggle = (event: Event) => {
+    setSmelterEnabled((event.target as HTMLInputElement).checked);
+  };
+
+  const handleTierSelect = (tier: 1 | 2 | 3) => {
+    setSmelterTier(tier);
+    setUseCustomSmelter(false);
+  };
+
+  const handleCustomToggle = (event: Event) => {
+    setUseCustomSmelter((event.target as HTMLInputElement).checked);
+  };
+
+  const handleCustomPctInput = (event: Event) => {
+    const val = Number.parseFloat((event.target as HTMLInputElement).value);
+    if (Number.isFinite(val)) setSmelterCustomPct(val);
   };
 
   const handlePercentInput = (metal: string, event: Event) => {
@@ -82,7 +106,14 @@
       <div class="calculator-meta-grid">
         <p class="calculator-meta-item">
           <span>合計ユニット数</span>
-          <strong>{formatQuantity($alloyCalculation.totalUnits)}</strong>
+          <strong>
+            {#if $alloyCalculator.smelterEnabled && $alloyCalculation.smelterReductionPct > 0}
+              <span class="nugget-original">{formatQuantity($alloyCalculation.totalUnits)}</span>
+              → {formatQuantity($alloyCalculation.producedUnits ?? 0)}
+            {:else}
+              {formatQuantity($alloyCalculation.totalUnits)}
+            {/if}
+          </strong>
         </p>
         <p class="calculator-meta-item">
           <span>溶解温度</span>
@@ -92,6 +123,72 @@
           <span>使用可能な燃料</span>
           <strong>{$alloyCalculation.compatibleFuels}</strong>
         </p>
+      </div>
+    </CalculatorCard>
+
+    <!-- XSkills Smelterスキルセクション -->
+    <CalculatorCard title="XSkills: 鋳造師スキル" headingTag="h3">
+      <div class="smelter-section">
+        <label class="smelter-toggle-row">
+          <span class="smelter-toggle-label">
+            <strong>鋳造師 (Smelter) スキルを適用</strong>
+            <span class="smelter-sublabel">合金精錬に必要なナゲット数を削減します</span>
+          </span>
+          <input
+            type="checkbox"
+            checked={$alloyCalculator.smelterEnabled}
+            on:change={handleSmelterToggle}
+          />
+        </label>
+
+        {#if $alloyCalculator.smelterEnabled}
+          <div class="smelter-options">
+            <p class="smelter-mode-label">スキルレベル（デフォルト値）</p>
+            <div class="tier-buttons">
+              {#each smelterTiers as tier (tier)}
+                <button
+                  class="tier-btn"
+                  class:tier-active={!$alloyCalculator.useCustomSmelter && $alloyCalculator.smelterTier === tier}
+                  on:click={() => handleTierSelect(tier)}
+                >
+                  Tier {tier}<span class="tier-pct">-{SMELTER_TIER_DEFAULTS[tier]}%</span>
+                </button>
+              {/each}
+            </div>
+
+            <label class="custom-toggle-row">
+              <input
+                type="checkbox"
+                checked={$alloyCalculator.useCustomSmelter}
+                on:change={handleCustomToggle}
+              />
+              カスタム値を使用
+            </label>
+
+            {#if $alloyCalculator.useCustomSmelter}
+              <div class="custom-pct-row">
+                <label for="alloyCustomSmelterPct">削減率 (%)</label>
+                <input
+                  id="alloyCustomSmelterPct"
+                  type="number"
+                  inputmode="decimal"
+                  min="0"
+                  max="99"
+                  step="1"
+                  value={$alloyCalculator.smelterCustomPct}
+                  on:input={handleCustomPctInput}
+                  on:change={handleCustomPctInput}
+                />
+              </div>
+            {/if}
+
+            {#if $alloyCalculation.smelterReductionPct > 0}
+              <div class="smelter-summary">
+                <span>適用中の削減率: <strong>{$alloyCalculation.smelterReductionPct}%</strong></span>
+              </div>
+            {/if}
+          </div>
+        {/if}
       </div>
     </CalculatorCard>
 
@@ -168,3 +265,140 @@
     </div>
   </section>
 </section>
+
+<style>
+  .smelter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .smelter-toggle-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+
+  .smelter-toggle-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .smelter-sublabel {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .smelter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .smelter-mode-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .tier-buttons {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .tier-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--border-radius) / 2);
+    background: var(--surface);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all var(--transition);
+    gap: 0.1rem;
+    min-width: 4rem;
+  }
+
+  .tier-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--surface-hover);
+  }
+
+  .tier-btn.tier-active {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--surface);
+  }
+
+  .tier-pct {
+    font-size: 0.75rem;
+    opacity: 0.85;
+  }
+
+  .custom-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+  }
+
+  .custom-toggle-row input {
+    accent-color: var(--primary-color);
+    cursor: pointer;
+  }
+
+  .custom-pct-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .custom-pct-row label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .custom-pct-row input {
+    width: 5rem;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--border-radius) / 2);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+
+  .custom-pct-row input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+  }
+
+  .smelter-summary {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.6rem;
+    background: var(--surface-hover);
+    border-radius: calc(var(--border-radius) / 2);
+    border-left: 3px solid var(--primary-color);
+    color: var(--text-primary);
+  }
+
+  .nugget-original {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+    font-weight: normal;
+    margin-right: 0.2rem;
+  }
+</style>

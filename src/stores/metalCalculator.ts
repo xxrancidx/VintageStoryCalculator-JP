@@ -10,7 +10,10 @@ import { computeIngotStackPlan, computeStackPlan } from "../lib/stack-plan";
 import { formatFuelList, getCompatibleFuels } from "../lib/fuels";
 import { displayMetal, displayOre } from "../lib/metal-names";
 import { calculatePureMetalAllocation } from "../lib/smelting";
+import { getSmelterReduction, SMELTER_TIER_DEFAULTS } from "../lib/smelter";
 import type { Metal } from "../types/index";
+
+export { SMELTER_TIER_DEFAULTS };
 
 export type MetalCalculatorState = {
   selectedMetal: string;
@@ -19,13 +22,6 @@ export type MetalCalculatorState = {
   smelterTier: 1 | 2 | 3;
   useCustomSmelter: boolean;
   smelterCustomPct: number;
-};
-
-/** XSkills Smelter ability のデフォルト削減率 (Tier 1〜3) */
-export const SMELTER_TIER_DEFAULTS: Record<1 | 2 | 3, number> = {
-  1: 10,
-  2: 20,
-  3: 30
 };
 
 const METAL_DEFINITIONS = metalDefinitionsRaw as Record<string, Metal>;
@@ -86,12 +82,6 @@ export const applyState = (partial: Partial<MetalCalculatorState>) => {
     }
     return next;
   });
-};
-
-const getSmelterReduction = (state: MetalCalculatorState): number => {
-  if (!state.smelterEnabled) return 0;
-  if (state.useCustomSmelter) return state.smelterCustomPct;
-  return SMELTER_TIER_DEFAULTS[state.smelterTier];
 };
 
 export const metalCalculation = derived(metalCalculator, (state) => {

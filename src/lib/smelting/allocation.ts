@@ -148,7 +148,8 @@ export const calculatePureMetalAllocation = (
 
 export const calculateAlloyAllocation = (
   requiredUnits: number,
-  parts: AlloyPartConstraint[]
+  parts: AlloyPartConstraint[],
+  nuggetStep = NUGGETS_PER_INGOT
 ): AlloyAllocationResult => {
   const safeUnits = Math.max(0, Number.isFinite(requiredUnits) ? requiredUnits : 0);
   if (!parts.length) {
@@ -184,7 +185,7 @@ export const calculateAlloyAllocation = (
   const totalNuggets = findFeasibleTotalNuggets(
     requiredNuggets,
     parts,
-    NUGGETS_PER_INGOT
+    nuggetStep
   );
   const bounds = buildBounds(totalNuggets, parts);
   const targetPercents = normalizeTargetPercents(parts);

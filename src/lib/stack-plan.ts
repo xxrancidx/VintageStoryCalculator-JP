@@ -40,3 +40,14 @@ export const computeAlloyStackPlan = (
     balanceProcesses: true
   });
 };
+
+/** Smelter スキル有効時用: 20ナゲット倍数強制なし */
+export const computeAlloyStackPlanFree = (
+  planInputs: StackInput[],
+  alloyParts: AlloyStackConstraint[]
+): Calculation => {
+  return buildSmeltingProcessPlan(planInputs, {
+    alloyParts,
+    balanceProcesses: true
+  });
+};

@@ -1,6 +1,7 @@
 import { derived, writable } from "svelte/store";
 import alloyDefinitionsRaw from "../data/alloys.json";
 import {
+  NUGGETS_PER_INGOT,
   UNITS_PER_INGOT,
   formatTemperature,
   getMetalColor
@@ -8,18 +9,26 @@ import {
 import { validateAlloyRatios } from "../lib/calculations";
 import {
   computeAlloyStackPlan,
+  computeAlloyStackPlanFree,
   computeStackPlan,
   type StackInput
 } from "../lib/stack-plan";
 import { formatFuelList, getCompatibleFuels } from "../lib/fuels";
 import { displayAlloy, displayMetal } from "../lib/metal-names";
 import { calculateAlloyAllocation } from "../lib/smelting";
+import { getSmelterReduction, SMELTER_TIER_DEFAULTS } from "../lib/smelter";
 import type { Alloy } from "../types/index";
+
+export { SMELTER_TIER_DEFAULTS };
 
 export type AlloyCalculatorState = {
   selectedAlloy: string;
   targetIngots: number;
   metalPercentages: Record<string, number>;
+  smelterEnabled: boolean;
+  smelterTier: 1 | 2 | 3;
+  useCustomSmelter: boolean;
+  smelterCustomPct: number;
 };
 
 type AlloyPartState = {
@@ -295,7 +304,11 @@ const initializeState = (): AlloyCalculatorState => {
   return {
     selectedAlloy: defaultAlloy,
     targetIngots: 10,
-    metalPercentages: partsToPercentages(defaultParts)
+    metalPercentages: partsToPercentages(defaultParts),
+    smelterEnabled: false,
+    smelterTier: 3,
+    useCustomSmelter: false,
+    smelterCustomPct: 30
   };
 };
 
@@ -318,6 +331,23 @@ export const setTargetIngots = (value: number | null) => {
     ...state,
     targetIngots: target
   }));
+};
+
+export const setSmelterEnabled = (enabled: boolean) => {
+  alloyCalculator.update((state) => ({ ...state, smelterEnabled: enabled }));
+};
+
+export const setSmelterTier = (tier: 1 | 2 | 3) => {
+  alloyCalculator.update((state) => ({ ...state, smelterTier: tier }));
+};
+
+export const setSmelterCustomPct = (pct: number) => {
+  const safe = Math.min(99, Math.max(0, Number.isFinite(pct) ? pct : 0));
+  alloyCalculator.update((state) => ({ ...state, smelterCustomPct: safe }));
+};
+
+export const setUseCustomSmelter = (custom: boolean) => {
+  alloyCalculator.update((state) => ({ ...state, useCustomSmelter: custom }));
 };
 
 export const setMetalPercentage = (metal: string, value: number) => {
@@ -381,6 +411,10 @@ export const alloyCalculation = derived(alloyCalculator, (state) => {
       parts: [],
       totalUnits: 0,
       totalPercent: 0,
+      smelterReductionPct: 0,
+      baseNuggets: 0,
+      totalNuggets: 0,
+      producedUnits: 0,
       smeltTemp: formatTemperature(undefined),
       compatibleFuels: formatFuelList(undefined),
       barSegments: [{ label: "No metals", color: "#eee", flex: 1 }],
@@ -392,16 +426,27 @@ export const alloyCalculation = derived(alloyCalculator, (state) => {
 
   const parts = buildPartsFromState(definition, state.metalPercentages);
   const totalUnits = Math.max(0, state.targetIngots) * UNITS_PER_INGOT;
+
+  const smelterReductionPct = getSmelterReduction(state);
+  const reductionFactor = 1 - smelterReductionPct / 100;
+  const reducedUnits = totalUnits * reductionFactor;
+
+  const alloyParts = parts.map((part) => ({
+    metal: part.metal,
+    color: part.color,
+    min: part.min,
+    max: part.max,
+    pct: part.pct
+  }));
+
   const alloyAllocation = calculateAlloyAllocation(
-    totalUnits,
-    parts.map((part) => ({
-      metal: part.metal,
-      color: part.color,
-      min: part.min,
-      max: part.max,
-      pct: part.pct
-    }))
+    reducedUnits,
+    alloyParts,
+    state.smelterEnabled ? 1 : NUGGETS_PER_INGOT
   );
+  const baseNuggets = state.smelterEnabled
+    ? calculateAlloyAllocation(totalUnits, alloyParts, NUGGETS_PER_INGOT).totalNuggets
+    : alloyAllocation.totalNuggets;
   const allocationByMetal = new Map(
     alloyAllocation.parts.map((entry) => [entry.metal, entry])
   );
@@ -441,21 +486,18 @@ export const alloyCalculation = derived(alloyCalculator, (state) => {
     parts: partsWithAllocations,
     totalUnits,
     totalPercent,
+    smelterReductionPct,
+    baseNuggets,
+    totalNuggets: alloyAllocation.totalNuggets,
+    producedUnits: alloyAllocation.producedUnits,
     smeltTemp: formatTemperature(definition.smeltTemp),
     compatibleFuels,
     barSegments,
     stackInputs,
     stackPlan: stackInputs.length
-      ? computeAlloyStackPlan(
-        stackInputs,
-        parts.map((part) => ({
-          metal: part.metal,
-          color: part.color,
-          min: part.min,
-          max: part.max,
-          pct: part.pct
-        }))
-      )
+      ? state.smelterEnabled
+        ? computeAlloyStackPlanFree(stackInputs, alloyParts)
+        : computeAlloyStackPlan(stackInputs, alloyParts)
       : computeStackPlan([]),
     hasStackInputs: stackInputs.length > 0
   };
