@@ -2,41 +2,65 @@
   "copper": {
     "name": "Copper",
     "ores": ["Native copper", "Malachite"],
-    "smeltTemp": 1084
+    "smeltTemp": 1084,
+    "tier": 2,
+    "useCase": "ティア2 序盤の主役",
+    "description": "武器・防具・道具すべてに使える序盤の万能金属。地表で自然銅（Native copper）をそのまま拾えるため、最初に持つ金属になることが多い。耐久300・採掘倍率4.0倍。"
   },
   "gold": {
     "name": "Gold",
     "ores": ["Native gold"],
-    "smeltTemp": 1063
+    "smeltTemp": 1063,
+    "tier": 2,
+    "useCase": "装飾・ランタン",
+    "description": "実戦装備には不向き（耐久150）。黒青銅（Black Bronze）やエレクトラム（Electrum）の必須素材として、または鎌剣（Falx）・ランタン張り紙などの装飾枠で活躍。青銅製ツルハシがあれば採掘可能。"
   },
   "silver": {
     "name": "Silver",
     "ores": ["Native silver"],
-    "smeltTemp": 961
+    "smeltTemp": 961,
+    "tier": 2,
+    "useCase": "装飾・合金素材",
+    "description": "黒青銅（Black Bronze）・エレクトラム（Electrum）・銀半田（Silver Solder）の必須素材。本体の戦闘性能は低い（耐久175）。方鉛鉱（Galena）からも副産物として産出する。"
   },
   "tin": {
     "name": "Tin",
     "ores": ["Cassiterite"],
-    "smeltTemp": 232
+    "smeltTemp": 232,
+    "tier": null,
+    "useCase": "錫青銅・半田の素材",
+    "description": "錫青銅（Tin Bronze）と鉛半田／銀半田の合金素材。本体は装備にできない。錫石（Cassiterite）は産出が偏在しており、序盤の発見が攻略のカギ。"
   },
   "zinc": {
     "name": "Zinc",
     "ores": ["Sphalerite"],
-    "smeltTemp": 419
+    "smeltTemp": 419,
+    "tier": null,
+    "useCase": "真鍮・ビスマス青銅の素材",
+    "description": "真鍮（Brass）とビスマス青銅（Bismuth Bronze）の合金素材。本体は装備不可。閃亜鉛鉱（Sphalerite）はパンニングや序盤後半の鉱脈で入手しやすい。"
   },
   "bismuth": {
     "name": "Bismuth",
     "ores": ["Bismuthinite"],
-    "smeltTemp": 271
+    "smeltTemp": 271,
+    "tier": null,
+    "useCase": "ビスマス青銅の素材",
+    "description": "ビスマス青銅（Bismuth Bronze）の素材。本体はランタン色のバリエーション程度しか用途がない。融点271℃と非常に低い。"
   },
   "lead": {
     "name": "Lead",
     "ores": ["Galena"],
-    "smeltTemp": 327
+    "smeltTemp": 327,
+    "tier": null,
+    "useCase": "鉛ガラス・半田・ヨナス部品",
+    "description": "鉛ガラス窓、鉛半田（Lead Solder）、ヨナス（Jonas）装置部品、モリブドカルコス（Molybdochalkos）の素材。冷間でも加工できる唯一の金属で、序盤から方鉛鉱（Galena）で集まる。"
   },
   "nickel": {
     "name": "Nickel",
     "ores": ["Pentlandite"],
-    "smeltTemp": 1325
+    "smeltTemp": 1325,
+    "tier": null,
+    "useCase": "キュプロニッケルの素材",
+    "description": "キュプロニッケル（Cupronickel）専用の素材。本体は装備不可。融点1325℃と高く、精錬には必ずコークスが必要（炭・木炭では溶けない）。ペントランド鉱（Pentlandite）は鉄製ツルハシで採掘する。"
   }
 }

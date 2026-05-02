@@ -4,6 +4,7 @@
   import SelectInput from "../components/select-input.svelte";
   import ShareButton from "../components/share-button.svelte";
   import StackPlanPanel from "../components/stack-plan-panel.svelte";
+  import TipsCard from "../components/tips-card.svelte";
   import alloyDefinitionsRaw from "../data/alloys.json";
   import { NUGGETS_PER_INGOT } from "../lib/constants";
   import { displayAlloy, displayMetal } from "../lib/metal-names";
@@ -32,6 +33,11 @@
     value: key,
     label: displayAlloy(alloys[key]?.name ?? key)
   }));
+
+  $: selectedAlloyDef = alloys[$alloyCalculator.selectedAlloy];
+  $: selectedAlloyDisplayName = selectedAlloyDef
+    ? displayAlloy(selectedAlloyDef.name)
+    : "";
 
   const formatQuantity = formatWholeNumber;
   const smelterTiers: Array<1 | 2 | 3> = [1, 2, 3];
@@ -101,6 +107,14 @@
         on:input={handleIngotsInput}
       />
     </div>
+
+    <TipsCard
+      title="この合金の特徴"
+      displayName={selectedAlloyDisplayName}
+      tier={selectedAlloyDef?.tier ?? null}
+      useCase={selectedAlloyDef?.useCase ?? ""}
+      description={selectedAlloyDef?.description ?? ""}
+    />
 
     <CalculatorCard title="計算結果まとめ" headingTag="h3">
       <div class="calculator-meta-grid">

@@ -181,20 +181,12 @@
   min-width: 0;
 }
 
+/* チュートリアル ON 時のみ DOM に出力されるため常時表示にし、hover/focus による高さ変動でレイアウトがガタつく問題を解消 */
 .control-help {
   margin: 6px 0 0 0;
   font-size: 0.8rem;
   color: var(--text-secondary);
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity var(--transition), max-height var(--transition);
-}
-
-.control:hover .control-help,
-.control:focus-within .control-help {
-  opacity: 1;
-  max-height: 40px;
+  line-height: 1.4;
 }
 
 .stack-chip {
