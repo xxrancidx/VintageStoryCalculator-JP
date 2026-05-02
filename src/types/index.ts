@@ -10,6 +10,9 @@ export interface Alloy {
   name: string;
   smeltTemp?: number;
   parts: AlloyPart[];
+  tier?: number | null;
+  useCase?: string;
+  description?: string;
 }
 
 export interface Metal {
@@ -17,6 +20,9 @@ export interface Metal {
   smeltTemp: number;
   ores: string[];
   color?: string;
+  tier?: number | null;
+  useCase?: string;
+  description?: string;
 }
 
 export interface Calculation {

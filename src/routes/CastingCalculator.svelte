@@ -4,6 +4,7 @@
   import SelectInput from "../components/select-input.svelte";
   import ShareButton from "../components/share-button.svelte";
   import StackPlanPanel from "../components/stack-plan-panel.svelte";
+  import TipsCard from "../components/tips-card.svelte";
   import metalDefinitionsRaw from "../data/metals.json";
   import { NUGGETS_PER_INGOT, UNITS_PER_INGOT } from "../lib/constants";
   import { displayMetal } from "../lib/metal-names";
@@ -28,6 +29,11 @@
     value: key,
     label: displayMetal(metal.name)
   }));
+
+  $: selectedMetalDef = metalDefinitions[$metalCalculator.selectedMetal];
+  $: selectedMetalDisplayName = selectedMetalDef
+    ? displayMetal(selectedMetalDef.name)
+    : "";
 
   const formatQuantity = formatWholeNumber;
 
@@ -91,6 +97,14 @@
         on:input={handleIngotsInput}
       />
     </div>
+
+    <TipsCard
+      title="この金属の特徴"
+      displayName={selectedMetalDisplayName}
+      tier={selectedMetalDef?.tier ?? null}
+      useCase={selectedMetalDef?.useCase ?? ""}
+      description={selectedMetalDef?.description ?? ""}
+    />
 
     <!-- XSkills Smelterスキルセクション -->
     <CalculatorCard title="XSkills: 鋳造師スキル" headingTag="h3">
