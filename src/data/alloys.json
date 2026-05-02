@@ -4,7 +4,7 @@
     "smeltTemp": 920,
     "tier": null,
     "useCase": "装飾・松明立て",
-    "description": "ヴィンテージストーリーで唯一「松明立て (Torch holder)」を作れる合金。武器・防具・道具には使用不可。亜鉛 (Sphalerite) が必要。",
+    "description": "ヴィンテージストーリーで唯一「松明立て」を作れる合金。武器・防具・道具には使用不可。亜鉛（Zinc）が必要で、亜鉛は閃亜鉛鉱（Sphalerite）から入手する。",
     "parts": [
       { "metal": "Copper", "min": 60, "max": 70 },
       { "metal": "Zinc", "min": 30, "max": 40 }
@@ -14,8 +14,8 @@
     "name": "Tin Bronze",
     "smeltTemp": 950,
     "tier": 3,
-    "useCase": "Tier 3 オールラウンド道具",
-    "description": "採掘速度・攻撃力重視のスタンダードな青銅。Pickaxe×6.0 / 攻撃 1.75 / 耐久 450。Bronze Age の主役で、Iron 用 Anvil の素材にも必須。",
+    "useCase": "ティア3 万能道具",
+    "description": "採掘速度・攻撃力重視のスタンダードな青銅。ツルハシ採掘倍率6.0倍／攻撃力1.75／耐久450。青銅器時代の主役で、鉄（Iron）用の金床（Anvil）の素材にも必須。",
     "parts": [
       { "metal": "Copper", "min": 88, "max": 92 },
       { "metal": "Tin", "min": 8, "max": 12 }
@@ -25,8 +25,8 @@
     "name": "Bismuth Bronze",
     "smeltTemp": 850,
     "tier": 3,
-    "useCase": "Tier 3 耐久重視・低融点",
-    "description": "耐久 500 で Tin Bronze より長持ちするが攻撃力 1.5・採掘×5.5 とやや低速。融点 850°C と最も低く、泥炉でナゲットから直接溶解できる扱いやすい青銅。",
+    "useCase": "ティア3 耐久重視・低融点",
+    "description": "耐久500で錫青銅（Tin Bronze）より長持ちするが、攻撃力1.5・採掘倍率5.5倍とやや低速。融点850℃と最も低く、泥炉でナゲットから直接溶解できる扱いやすい青銅。",
     "parts": [
       { "metal": "Copper", "min": 50, "max": 70 },
       { "metal": "Zinc", "min": 20, "max": 30 },
@@ -37,8 +37,8 @@
     "name": "Black Bronze",
     "smeltTemp": 1020,
     "tier": 3,
-    "useCase": "Tier 3 最高峰・ハイエンド青銅",
-    "description": "3 種青銅の最高性能。攻撃 2.0 / 採掘×6.5 / 耐久 550 と全項目 Tier 3 最強。金・銀の両方を必要とするためコストは高いが、Iron 移行までの最終装備に最適。",
+    "useCase": "ティア3 最高峰・ハイエンド青銅",
+    "description": "3種青銅の最高性能。攻撃力2.0／採掘倍率6.5倍／耐久550と全項目でティア3最強。金（Gold）と銀（Silver）の両方を必要とするためコストは高いが、鉄（Iron）移行までの最終装備に最適。",
     "parts": [
       { "metal": "Copper", "min": 68, "max": 84, "default": 80 },
       { "metal": "Gold", "min": 8, "max": 16, "default": 10 },
@@ -49,8 +49,8 @@
     "name": "Lead Solder",
     "smeltTemp": 327,
     "tier": null,
-    "useCase": "蒸留器の Solder bar",
-    "description": "アルコール蒸留装置に必要な Solder bar の素材。武器・防具・道具には使用不可。融点 327°C と非常に低い。",
+    "useCase": "蒸留器の半田棒",
+    "description": "アルコール蒸留装置に必要な半田棒（Solder bar）の素材。武器・防具・道具には使用不可。融点327℃と非常に低い。",
     "parts": [
       { "metal": "Lead", "min": 45, "max": 55 },
       { "metal": "Tin", "min": 45, "max": 55 }
@@ -61,7 +61,7 @@
     "smeltTemp": 902,
     "tier": null,
     "useCase": "ランタン素材",
-    "description": "ランタンの色違いを作るためだけの装飾用合金。鉛主体で Galena から序盤に集められる。",
+    "description": "ランタンの色違いを作るためだけの装飾用合金。鉛（Lead）主体で、方鉛鉱（Galena）から序盤に集められる。",
     "parts": [
       { "metal": "Lead", "min": 88, "max": 92 },
       { "metal": "Copper", "min": 8, "max": 12 }
@@ -71,8 +71,8 @@
     "name": "Silver Solder",
     "smeltTemp": 758,
     "tier": null,
-    "useCase": "蒸留器の上位 Solder bar",
-    "description": "Lead Solder の上位互換で、より精度の高い蒸留器を作れる。銀と錫を集めた中盤以降に。",
+    "useCase": "蒸留器の上位半田棒",
+    "description": "鉛半田（Lead Solder）の上位互換で、より精度の高い蒸留器を作れる。銀（Silver）と錫（Tin）を集めた中盤以降に。",
     "parts": [
       { "metal": "Tin", "min": 50, "max": 60 },
       { "metal": "Silver", "min": 40, "max": 50 }
@@ -83,7 +83,7 @@
     "smeltTemp": 1010,
     "tier": null,
     "useCase": "終盤テクノロジーの中核",
-    "description": "Rift ward (時間の裂け目を抑える) や Translocator・Base return teleporter・Night vision mask・ランタン拡張など終盤テックの主要素材。武器防具には使えない。",
+    "description": "亀裂封じ（Rift ward／時間の裂け目を抑える）、転送装置（Translocator）、帰還用テレポーター、暗視マスク（Night vision mask）、ランタン拡張など終盤テックの主要素材。武器・防具には使えない。",
     "parts": [
       { "metal": "Gold", "min": 40, "max": 60 },
       { "metal": "Silver", "min": 40, "max": 60 }
@@ -93,8 +93,8 @@
     "name": "Cupronickel",
     "smeltTemp": 1171,
     "tier": null,
-    "useCase": "Jonas 装置部品",
-    "description": "Pulverizer など Jonas 系機械の精密部品専用。Nickel を含むため精錬にはコークス必須 (炭・木炭では Ni が溶けない)。",
+    "useCase": "ヨナス装置部品",
+    "description": "粉砕機（Pulverizer）などヨナス（Jonas）系機械の精密部品専用。ニッケル（Nickel）を含むため精錬にはコークス必須（炭・木炭ではニッケルが溶けない）。",
     "parts": [
       { "metal": "Copper", "min": 65, "max": 75 },
       { "metal": "Nickel", "min": 25, "max": 35 }
