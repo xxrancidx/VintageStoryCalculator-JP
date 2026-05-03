@@ -3,30 +3,38 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: 10px;
   width: 100%;
-  padding: 10px var(--spacing-md);
+  padding: 12px 20px;
+  min-height: 44px;
   background: var(--surface);
   color: var(--text-primary);
   border: 1px solid var(--border-strong);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: all var(--transition);
-  box-shadow: 0 2px 8px var(--shadow);
+  transition: background var(--transition), border-color var(--transition),
+    color var(--transition), box-shadow var(--transition), transform var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .share-button:hover {
   background: var(--surface-hover);
   border-color: var(--primary-color);
-  box-shadow: 0 4px 12px var(--shadow-hover);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
 .share-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px var(--shadow);
+  box-shadow: var(--shadow-sm);
+}
+
+.share-button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-md), var(--ring-shadow);
 }
 
 .share-button--copied {
@@ -41,8 +49,8 @@
 }
 
 .share-button__icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 

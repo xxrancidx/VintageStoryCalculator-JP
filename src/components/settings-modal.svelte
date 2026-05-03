@@ -95,47 +95,53 @@
                 <span class="setting-label">テーマ</span>
                 <span class="setting-description">カラースキームを選択</span>
               </label>
-              <select 
-                id="theme-select"
-                value={$settings.theme}
-                on:change={handleThemeChange}
-              >
-                {#each themeEntries as [key, label]}
-                  <option value={key}>{label}</option>
-                {/each}
-              </select>
+              <span class="select-wrapper">
+                <select
+                  id="theme-select"
+                  value={$settings.theme}
+                  on:change={handleThemeChange}
+                >
+                  {#each themeEntries as [key, label]}
+                    <option value={key}>{label}</option>
+                  {/each}
+                </select>
+              </span>
             </div>
-            
+
             <div class="setting-item">
               <label for="font-select">
                 <span class="setting-label">フォント</span>
                 <span class="setting-description">テキストの表示を調整</span>
               </label>
-              <select 
-                id="font-select"
-                value={$settings.fontFamily}
-                on:change={handleFontChange}
-              >
-                {#each fontFamilyEntries as [key, label]}
-                  <option value={key}>{label}</option>
-                {/each}
-              </select>
+              <span class="select-wrapper">
+                <select
+                  id="font-select"
+                  value={$settings.fontFamily}
+                  on:change={handleFontChange}
+                >
+                  {#each fontFamilyEntries as [key, label]}
+                    <option value={key}>{label}</option>
+                  {/each}
+                </select>
+              </span>
             </div>
-            
+
             <div class="setting-item">
               <label for="scale-select">
                 <span class="setting-label">UIサイズ</span>
                 <span class="setting-description">インターフェースの拡大率を調整</span>
               </label>
-              <select 
-                id="scale-select"
-                value={$settings.uiScale}
-                on:change={handleScaleChange}
-              >
-                {#each uiScaleEntries as [key, value]}
-                  <option value={key}>{value.label}</option>
-                {/each}
-              </select>
+              <span class="select-wrapper">
+                <select
+                  id="scale-select"
+                  value={$settings.uiScale}
+                  on:change={handleScaleChange}
+                >
+                  {#each uiScaleEntries as [key, value]}
+                    <option value={key}>{value.label}</option>
+                  {/each}
+                </select>
+              </span>
             </div>
           </section>
         {/if}
@@ -232,19 +238,30 @@
   
   .close-button {
     background: transparent;
-    border: none;
-    font-size: 1.5rem;
+    border: 1px solid transparent;
+    font-size: 1.25rem;
     color: var(--text-secondary);
     cursor: pointer;
-    padding: var(--spacing-xs);
+    width: 40px;
+    height: 40px;
     line-height: 1;
-    border-radius: calc(var(--border-radius) / 2);
-    transition: all var(--transition);
+    border-radius: var(--radius-lg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), color var(--transition),
+      border-color var(--transition), box-shadow var(--transition);
   }
-  
+
   .close-button:hover {
     background: var(--surface-hover);
     color: var(--text-primary);
+    border-color: var(--border-soft);
+  }
+
+  .close-button:focus-visible {
+    outline: none;
+    box-shadow: var(--ring-shadow);
   }
   
   .settings-tabs {
@@ -257,19 +274,32 @@
   .tab-button {
     background: transparent;
     border: none;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 12px 18px;
+    min-height: 44px;
     color: var(--text-secondary);
     cursor: pointer;
+    font-size: 0.95rem;
     font-weight: 500;
     border-bottom: 2px solid transparent;
-    transition: all var(--transition);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    transition: color var(--transition), background var(--transition),
+      border-color var(--transition);
   }
-  
-  .tab-button:hover { color: var(--text-primary); }
-  
+
+  .tab-button:hover {
+    color: var(--text-primary);
+    background: var(--surface-hover);
+  }
+
+  .tab-button:focus-visible {
+    outline: none;
+    box-shadow: var(--ring-shadow);
+  }
+
   .tab-button.active {
     color: var(--primary-color);
     border-bottom-color: var(--primary-color);
+    font-weight: 600;
   }
   
   .settings-content {
@@ -310,21 +340,36 @@
   
   .setting-item select {
     width: 100%;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--surface);
-    border: 1px solid var(--border-color);
-    border-radius: calc(var(--border-radius) / 2);
+    padding: 12px 44px 12px 16px;
+    min-height: 44px;
+    background: var(--surface-raised);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
     color: var(--text-primary);
     font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition), box-shadow var(--transition),
+      background var(--transition);
   }
-  
-  .setting-item select:hover { border-color: var(--border-strong); }
-  
+
+  .setting-item select::-ms-expand {
+    display: none;
+  }
+
+  .setting-item select:hover {
+    border-color: var(--primary-light);
+    background: var(--surface);
+  }
+
   .setting-item select:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--ring-shadow);
   }
   
   .toggle-label {
@@ -341,34 +386,45 @@
   .toggle-label:hover { background: var(--surface-hover); }
   .toggle-label > div { flex: 1; }
   
-  .toggle-input { display: none; }
-  
+  /* visually hidden but focusable so :focus-visible still applies */
+  .toggle-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+  }
+
   .toggle-slider {
     position: relative;
     display: inline-block;
-    width: 48px;
-    height: 24px;
+    width: 56px;
+    height: 30px;
     background: var(--border-color);
-    border-radius: 12px;
-    transition: background var(--transition);
+    border-radius: var(--radius-full);
+    transition: background var(--transition), box-shadow var(--transition);
     flex-shrink: 0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
   }
-  
+
   .toggle-slider::before {
     content: "";
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
     background: white;
     border-radius: 50%;
     transition: transform var(--transition);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-md);
   }
-  
+
   .toggle-input:checked + .toggle-slider { background: var(--primary-color); }
-  .toggle-input:checked + .toggle-slider::before { transform: translateX(24px); }
+  .toggle-input:checked + .toggle-slider::before { transform: translateX(26px); }
+  .toggle-input:focus-visible + .toggle-slider {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08), var(--ring-shadow);
+  }
   
   .settings-footer {
     padding: var(--spacing-md) var(--spacing-lg);
@@ -378,20 +434,36 @@
   }
   
   .reset-button {
-    background: transparent;
-    border: 1px solid var(--border-color);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
     color: var(--text-secondary);
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: calc(var(--border-radius) / 2);
+    padding: 10px 20px;
+    min-height: 44px;
+    border-radius: var(--radius-lg);
     cursor: pointer;
+    font-size: 0.95rem;
     font-weight: 500;
-    transition: all var(--transition);
+    box-shadow: var(--shadow-sm);
+    transition: background var(--transition), border-color var(--transition),
+      color var(--transition), box-shadow var(--transition), transform var(--transition);
   }
-  
+
   .reset-button:hover {
     background: var(--surface-hover);
-    border-color: var(--border-strong);
+    border-color: var(--primary-color);
     color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .reset-button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .reset-button:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-md), var(--ring-shadow);
   }
   
   @media (max-width: 768px) {

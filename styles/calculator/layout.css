@@ -88,28 +88,43 @@
 .control select,
 .control input[type="number"] {
   padding: 12px 16px;
-  border: 2px solid var(--border-soft);
-  border-radius: calc(var(--border-radius) / 2);
+  min-height: 44px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
   font-size: 1rem;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background var(--transition), transform var(--transition);
   background: var(--surface-raised);
   color: var(--text-primary);
-  font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
+
+.control select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.control select::-ms-expand {
+  display: none;
+}
+
 
 .control select:hover,
 .control input[type="number"]:hover {
   border-color: var(--primary-light);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
 }
 
 .control select:focus,
 .control input[type="number"]:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 4px rgba(44, 95, 45, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), var(--ring-shadow);
 }
 
 /* Calculator Container */
@@ -254,27 +269,30 @@
 
 /* Input Elements */
 .percent {
-  width: 85px;
-  padding: 6px 12px;
-  border: 2px solid var(--border-soft);
-  border-radius: 6px;
+  width: 92px;
+  padding: 8px 12px;
+  min-height: 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
   font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background var(--transition);
   background: var(--surface-raised);
   color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
 }
 
 .percent:hover {
   border-color: var(--primary-light);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .percent:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(44, 95, 45, 0.15);
-  transform: scale(1.05);
+  box-shadow: var(--shadow-sm), var(--ring-shadow);
 }
 
 /* Visual Bar */

@@ -31,20 +31,22 @@
 
 <div class="control">
   <label for={id}>{label}</label>
-  <select
-    id={id}
-    bind:this={selectEl}
-    value={value}
-    disabled={disabled}
-    title={shouldShowHelp ? helpText : undefined}
-    aria-describedby={shouldShowHelp ? `${id}-help` : undefined}
-    on:input={handleInput}
-    on:change={handleChange}
-  >
-    {#each options as option (option.value)}
-      <option value={option.value} disabled={option.disabled}>{option.label}</option>
-    {/each}
-  </select>
+  <span class="select-wrapper">
+    <select
+      id={id}
+      bind:this={selectEl}
+      value={value}
+      disabled={disabled}
+      title={shouldShowHelp ? helpText : undefined}
+      aria-describedby={shouldShowHelp ? `${id}-help` : undefined}
+      on:input={handleInput}
+      on:change={handleChange}
+    >
+      {#each options as option (option.value)}
+        <option value={option.value} disabled={option.disabled}>{option.label}</option>
+      {/each}
+    </select>
+  </span>
   {#if shouldShowHelp}
     <p class="control-help" id={`${id}-help`}>{helpText}</p>
   {/if}

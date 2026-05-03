@@ -45,6 +45,17 @@
   /* Other */
   --border-radius: 8px;
   --transition: 0.2s ease;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --ring-color: color-mix(in srgb, var(--primary-color) 35%, transparent);
+  --ring-shadow: 0 0 0 3px var(--ring-color);
 }
 
 /* Nature Light Theme */

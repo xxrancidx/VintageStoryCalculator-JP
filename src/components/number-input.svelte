@@ -128,22 +128,21 @@
   .number-input-group {
     display: flex;
     align-items: stretch;
-    border: 2px solid var(--border-soft);
-    border-radius: calc(var(--border-radius) / 2);
+    min-height: 48px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
     background: var(--surface-raised);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .number-input-group:hover:not(.is-disabled) {
     border-color: var(--primary-light);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
   }
   .number-input-group:focus-within {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-color) 18%, transparent),
-      0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    box-shadow: var(--shadow-md), var(--ring-shadow);
   }
   .number-input-group.is-disabled {
     opacity: 0.6;
