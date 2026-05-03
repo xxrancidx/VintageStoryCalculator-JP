@@ -2,7 +2,7 @@
 export const SMELTER_TIER_DEFAULTS: Record<1 | 2 | 3, number> = {
   1: 10,
   2: 20,
-  3: 30
+  3: 25
 };
 
 export type SmelterState = {
