@@ -171,9 +171,10 @@ export const initSettings = (): (() => void) => {
     // Apply UI scale
     const scale = UI_SCALES[value.uiScale].scale;
     document.documentElement.style.setProperty("--ui-scale", scale.toString());
-    
-    // Theme is handled by theme.ts, but we keep it in settings for unified management
-    // Help text is reactive via component props, no DOM manipulation needed
+
+    // Toggle compact mode class on body — hides decorative/explanatory chrome
+    // on calculator pages when help text is disabled.
+    document.body.classList.toggle("ui-compact", !value.showHelpText);
   };
   
   const unsubscribe = settings.subscribe(applySettings);

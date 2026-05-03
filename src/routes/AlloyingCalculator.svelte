@@ -434,4 +434,9 @@
     font-weight: normal;
     margin-right: 0.2rem;
   }
+
+  :global(.ui-compact) .smelter-sublabel,
+  :global(.ui-compact) .smelter-mode-label {
+    display: none;
+  }
 </style>

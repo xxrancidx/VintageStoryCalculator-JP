@@ -22,9 +22,11 @@
     updateSetting("uiScale", target.value as UIScaleKey);
   };
   
+  // The UI toggle is labelled "コンパクト表示" (compact mode), which is the
+  // inverse of the underlying showHelpText flag. Toggle ON = compact = hide help.
   const handleHelpTextToggle = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    updateSetting("showHelpText", target.checked);
+    updateSetting("showHelpText", !target.checked);
   };
   
   const handleReset = () => {
@@ -153,14 +155,14 @@
             <div class="setting-item">
               <label for="help-text-toggle" class="toggle-label">
                 <div>
-                  <span class="setting-label">ヘルプテキストを表示</span>
-                  <span class="setting-description">フォーム入力のヒントと説明を表示する</span>
+                  <span class="setting-label">コンパクト表示</span>
+                  <span class="setting-description">ONにすると、計算機ページの紹介文・ヒント・補足説明を隠して操作に必要な要素だけを表示します</span>
                 </div>
-                <input 
+                <input
                   id="help-text-toggle"
                   type="checkbox"
                   class="toggle-input"
-                  checked={$settings.showHelpText}
+                  checked={!$settings.showHelpText}
                   on:change={handleHelpTextToggle}
                 />
                 <span class="toggle-slider"></span>

@@ -1,0 +1,20 @@
+/* Compact mode — applied when body has .ui-compact (settings: コンパクト表示 ON).
+   Hides decorative/explanatory chrome on calculator pages only.
+   Operational elements (inputs, labels, buttons, results, warnings) are kept. */
+
+/* Top intro card body — keep title only, drop the description paragraph.
+   Scoped to the first .card inside .calculator-rail so we don't touch later cards
+   ("計算結果まとめ", "XSkills...", etc.). */
+.ui-compact .calculator-rail > .card:first-child > p {
+  display: none;
+}
+
+/* TipsCard ("この合金/金属の特徴") — hide entire card. */
+.ui-compact .calculator-rail .tips-card {
+  display: none;
+}
+
+/* StackPlanPanel note text below the headline. */
+.ui-compact .calculator-workspace .stack-note {
+  display: none;
+}
