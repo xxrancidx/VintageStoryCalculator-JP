@@ -13,3 +13,5 @@ pnpm-debug.log*
 
 # 検証スクリプトのビルド成果物
 scripts/*.mjs
+
+memory/
