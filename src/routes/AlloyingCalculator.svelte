@@ -150,6 +150,7 @@
           </span>
           <input
             type="checkbox"
+            class="toggle-checkbox"
             checked={$alloyCalculator.smelterEnabled}
             on:change={handleSmelterToggle}
           />
@@ -173,6 +174,7 @@
             <label class="custom-toggle-row">
               <input
                 type="checkbox"
+                class="toggle-checkbox toggle-checkbox--sm"
                 checked={$alloyCalculator.useCustomSmelter}
                 on:change={handleCustomToggle}
               />
@@ -295,6 +297,10 @@
     cursor: pointer;
   }
 
+  .smelter-toggle-row :global(.toggle-checkbox) {
+    margin-top: 0.2rem;
+  }
+
   .smelter-toggle-label {
     display: flex;
     flex-direction: column;
@@ -330,28 +336,45 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.35rem 0.7rem;
-    border: 1px solid var(--border-color);
-    border-radius: calc(var(--border-radius) / 2);
+    padding: 0.5rem 0.9rem;
+    min-height: 44px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
     background: var(--surface);
     color: var(--text-primary);
     cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all var(--transition);
-    gap: 0.1rem;
-    min-width: 4rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: background var(--transition), border-color var(--transition),
+      color var(--transition), box-shadow var(--transition), transform var(--transition);
+    gap: 0.15rem;
+    min-width: 4.5rem;
+    box-shadow: var(--shadow-sm);
   }
 
   .tier-btn:hover {
     border-color: var(--primary-color);
     background: var(--surface-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .tier-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .tier-btn:focus-visible {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md), var(--ring-shadow);
   }
 
   .tier-btn.tier-active {
     border-color: var(--primary-color);
     background: var(--primary-color);
-    color: var(--surface);
+    color: white;
+    box-shadow: var(--shadow-md);
   }
 
   .tier-pct {
@@ -368,10 +391,6 @@
     color: var(--text-secondary);
   }
 
-  .custom-toggle-row input {
-    accent-color: var(--primary-color);
-    cursor: pointer;
-  }
 
   .custom-pct-row {
     display: flex;
