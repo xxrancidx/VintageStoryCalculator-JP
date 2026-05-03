@@ -95,6 +95,87 @@ const buildPartsFromState = (alloy: Alloy, percentages: Record<string, number>) 
     };
   });
 
+// 「ある金属の値が決まったとき、残りの金属を定義のデフォルト比で按分する」
+// 履歴非依存の再分配。同じ入力なら必ず同じ結果になる。
+const redistributeFromAnchor = (
+  parts: AlloyPartState[],
+  anchorIndex: number,
+  alloy: Alloy
+) => {
+  if (!parts.length) return;
+  const anchor = parts[anchorIndex];
+  if (!anchor) return;
+
+  const defaultsByMetal = new Map<string, number>();
+  alloy.parts.forEach((part) => {
+    const min = Number.isFinite(part.min) ? part.min : 0;
+    const max =
+      Number.isFinite(part.max) && part.max >= min ? part.max : Math.max(min, 100);
+    const midpoint = (min + max) / 2;
+    const base =
+      typeof part.default === "number" && Number.isFinite(part.default)
+        ? part.default
+        : midpoint;
+    defaultsByMetal.set(part.metal, clamp(base, min, max));
+  });
+
+  const others = parts
+    .map((part, idx) => ({ part, idx }))
+    .filter((entry) => entry.idx !== anchorIndex);
+
+  if (!others.length) return;
+
+  const targetSum = 100 - anchor.pct;
+  const defaultsSum = others.reduce(
+    (sum, entry) => sum + (defaultsByMetal.get(entry.part.metal) ?? 0),
+    0
+  );
+
+  others.forEach((entry) => {
+    const d = defaultsByMetal.get(entry.part.metal) ?? 0;
+    const share =
+      defaultsSum > 0 ? (d / defaultsSum) * targetSum : targetSum / others.length;
+    entry.part.pct = clamp(share, entry.part.min, entry.part.max);
+  });
+
+  let residual = targetSum - others.reduce((sum, entry) => sum + entry.part.pct, 0);
+  let guard = 0;
+  while (Math.abs(residual) > 1e-6 && guard < 50) {
+    guard += 1;
+    const direction = residual > 0 ? 1 : -1;
+    const adjustable = others.filter((entry) => {
+      const cap =
+        direction > 0
+          ? entry.part.max - entry.part.pct
+          : entry.part.pct - entry.part.min;
+      return cap > 1e-6;
+    });
+    if (!adjustable.length) break;
+    const totalCap = adjustable.reduce((sum, entry) => {
+      const cap =
+        direction > 0
+          ? entry.part.max - entry.part.pct
+          : entry.part.pct - entry.part.min;
+      return sum + cap;
+    }, 0);
+    if (totalCap <= 1e-6) break;
+    const move = Math.min(Math.abs(residual), totalCap);
+    adjustable.forEach((entry) => {
+      const cap =
+        direction > 0
+          ? entry.part.max - entry.part.pct
+          : entry.part.pct - entry.part.min;
+      const portion = (cap / totalCap) * move;
+      entry.part.pct = clamp(
+        entry.part.pct + direction * portion,
+        entry.part.min,
+        entry.part.max
+      );
+    });
+    residual = targetSum - others.reduce((sum, entry) => sum + entry.part.pct, 0);
+  }
+};
+
 const normalizeParts = (parts: AlloyPartState[]) => {
   if (!parts.length) return;
 
@@ -355,14 +436,16 @@ export const setMetalPercentage = (metal: string, value: number) => {
     const definition = getAlloyDefinition(state.selectedAlloy);
     if (!definition) return state;
 
-    const parts = buildPartsFromState(definition, state.metalPercentages);
+    // 履歴非依存：常にデフォルト値から再構築し、anchor 以外はデフォルト比で按分。
+    // これにより同じ入力 (metal, value) は必ず同じ結果になる。
+    const parts = buildDefaultParts(definition);
     const index = parts.findIndex((part) => part.metal === metal);
     if (index === -1) return state;
 
     const selected = parts[index];
     if (!selected) return state;
     selected.pct = clamp(value, selected.min, selected.max);
-    rebalancePercents(parts, index);
+    redistributeFromAnchor(parts, index, definition);
     roundParts(parts, index);
 
     return {
